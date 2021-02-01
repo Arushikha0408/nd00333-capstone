@@ -1,0 +1,4 @@
+Best Run Id:  AutoML_f42f2be7-4d76-46fd-ba79-2ec7ee0d470f_52
+
+ AUC_weighted : 0.9191440337763013
+{'_aml_system_azureml.automlComponent': 'AutoML', '_aml_system_ComputeTargetStatus': '{"AllocationState":"steady","PreparingNodeCount":0,"RunningNodeCount":0,"CurrentNodeCount":4}', 'ensembled_iterations': '[33, 25, 43, 38, 42, 2]', 'ensembled_algorithms': "['RandomForest', 'XGBoostClassifier', 'GradientBoosting', 'RandomForest', 'RandomForest', 'RandomForest']", 'ensemble_weights': '[0.16666666666666666, 0.16666666666666666, 0.16666666666666666, 0.16666666666666666, 0.16666666666666666, 0.16666666666666666]', 'best_individual_pipeline_score': '0.9181987126245845', 'best_individual_iteration': '33', '_aml_system_automl_is_child_run_end_telemetry_event_logged': 'True'}
