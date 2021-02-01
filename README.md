@@ -81,21 +81,27 @@ automl_config = AutoMLConfig(compute_target=new_cluster,
                              **automl_settings
                              
                             )
-
+![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/run1.PNG)
+![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/auc_weighted.PNG)
+![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/model.PNG)
 
 ### Results
 
-This automl experiment generated an AUC_weighted score of 0.9185826411960134 for the AutoML model.
+This automl experiment generated an AUC_weighted score of 0.9191440337763013 for the AutoML model.
 
 The parameters that VotingEnsemble used are:
 
-'RandomForest', 'XGBoostClassifier', 'ExtremeRandomTrees', 'GradientBoosting', 'XGBoostClassifier', 'RandomForest', 'ExtremeRandomTrees', 'RandomForest', 'RandomForest', 'RandomForest', 'RandomForest'
+'RandomForest', 'XGBoostClassifier', 'GradientBoosting', 'RandomForest', 'RandomForest', 'RandomForest'
 
 It also had weights of: 
 
- 'ensemble_weights': '0.06666666666666667, 0.13333333333333333, 0.2, 0.06666666666666667, 0.06666666666666667, 0.06666666666666667, 0.06666666666666667, 0.13333333333333333, 0.06666666666666667, 0.06666666666666667, 0.06666666666666667'
+'ensemble_weights': 0.16666666666666666, 0.16666666666666666, 0.16666666666666666, 0.16666666666666666, 0.16666666666666666, 0.16666666666666666
  
 To improve the automl model, I can try applying other metrics, for example, the average precision score metrics that gives the weighted mean of precision with weights equal to class probability. It is a useful metric to compare how well models are ordering the predictions, without considering any specific decision threshold.
+
+![alt_test](https://github.com/Arushikha0408/nd00333-capstone/blob/master/voting1.PNG)
+![alt_test](https://github.com/Arushikha0408/nd00333-capstone/blob/master/voting2.PNG)
+![alt_test](https://github.com/Arushikha0408/nd00333-capstone/blob/master/best_run.PNG)
 
 ## Hyperparameter Tuning
 
@@ -106,6 +112,9 @@ The parameters I used for the hyperparameter search are:
 Regularization Strength (C) with range 0.1 to 1.0 -- Inverse of regularization strength. Smaller values cause stronger regularization
 
 Max Iterations (max_iter) with values 50, 100, 150 and 200 -- Maximum number of iterations to converge.
+![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/hyper_para.PNG)
+![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/hyper_rundetails1.PNG)
+![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/hyper_rundetails2.PNG)
 
 ### Results
 
@@ -119,6 +128,10 @@ This hyperparameters generated an accuracy of  0.7833333333333333 for the hyperd
 
 I could have improved the model through the use of Bayesian optimization algorithm that allows for the use of a different kind of statistical technique to improve the kind of hyperparameter. It picks samples based on how previous samples performed, so that new samples improve the primary metric and its search is potentially efficient.
 
+![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/hyper_bestrun.PNG)
+
+![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/hyper_bestmodel.PNG)
+![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/hyper_bestmodel1.PNG)
 
 
 ## Model Deployment
@@ -127,11 +140,15 @@ After training a model using Automated ML, the next thing is to deploy the best 
 
 To deploy my automl model, first thing is to register the model and then create an environment. I have a score.py script that is provided for the inference configuration. In the inference configuration, I enabled application insights, that is, logging. So now I can deploy the automl model using Azure Container Instance as a WebService with parameters: workspace, aci service name, model, inference config and deployment configuration.
 
+![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/deploy.PNG)
+![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/deploy1.PNG)
+![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/deploy2.PNG)
  
 After deployment was successful, a rest endpoint was generated, to query the endpoint with a sample input, I created an endpoint.py file that contained two sets of data for scoring, I copied the rest endpoint and added it to the endpoint.py file as a scoring uri.
 
-
+![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/deploy3.PNG)
+![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/deploy4.PNG)
 
 ### Screen Recording
 
- The link to screen recoreding is 
+ The link to screen recoreding is - 
