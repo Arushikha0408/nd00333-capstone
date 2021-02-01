@@ -1,27 +1,25 @@
 #  CAPSTONE PROJECT
    
 ## Project overview
+This is the Capstone project required for fulfillment of the Nanodegree Machine Learning Engineer with Microsoft Azure from Udacity. In this project, we use a dataset external to Azure ML ecosystem.
 
-  This project will demonstrate my ability to use an external dataset in Azure workspace, train a model using the different tools available in the AzureML framework as well as my ability to deploy the model as a web service. I'll create a machine learning model that can assess the likelihood of a death by heart failure event. In this project, I will create two models: one using Automated ML (denoted as AutoML from now on) and one customized model whose hyperparameters are tuned using HyperDrive. I will then compare the performance of both the models and deploy the best performing model. I will lastly enable logging in my deloyed web app, this will log useful data about the requests being sent to the webapp including the inference time and the time at which the request arrived.
-
+This project will demonstrate my ability to use an external dataset in Azure workspace, train a model using the different tools available in the AzureML framework as well as my ability to deploy the model as a web service. In this project, we need to create a machine learning model : one using Automated ML and other customized model whose hyperparameters are tuned using HyperDrive. Than we need to compare the performance of both the models and deploy the best between two. 
 
 ### Project Set Up
+Steps needs to be followed during this project - 
+•	**Step 1 :** Set up your workspace: Create a new workspace, if you haven’t already.
 
-•	Set up your workspace: Create a new workspace, if you haven’t already.
+•	**Step 2 :** Set up your Azure Development Environment: Create a compute instance VM to run jupyter notebooks.
 
-•	Set up your Azure Development Environment: Create a compute instance VM to run jupyter notebooks.
+•	**Step 3 :** Download starter files: These files have some boilerplate code and TODOs that will help you start working on your project. You can find them in this link: https://github.com/udacity/nd00333-capstone/tree/master/starter_file
 
-•	Download starter files: These files have some boilerplate code and TODOs that will help you start working on your project. You can find them in this link: https://github.com/udacity/nd00333-capstone/tree/master/starter_file
+•	**Step 4 :** Choose a dataset:  Working with Kaggle heart failure dataset, it can be found in the link: https://www.kaggle.com/andrewmvd/heart-failure-clinical-data/download
 
-•	Choose a dataset:  Working with Kaggle heart failure dataset, it can be found in the link: https://www.kaggle.com/andrewmvd/heart-failure-clinical-data/download
+•	**Step 5 :** Train a model using Automated ML: The automl.ipynb file contains a starter code to help you train a model using Automated ML. 
 
-Note: If you choose to work with any other external dataset, before choosing a task and dataset, make sure that it is supported by Azure ML's automl API.
+•	**Step 6 :** Train a model with HyperDrive: The hyperparameter_tuning.ipynb file contains some starter codes to help you train a model and perform hyperparameter tuning using HyperDrive.
 
-•	Train a model using Automated ML: The automl.ipynb file contains a starter code to help you train a model using Automated ML. 
-
-•	Train a model with HyperDrive: The hyperparameter_tuning.ipynb file contains some starter codes to help you train a model and perform hyperparameter tuning using HyperDrive.
-
-•	Model Deployment: After you have trained your models. You will have to deploy your best model as a webservice and test the model endpoint.
+•	**Step 7 :** Model Deployment: After you have trained your models. You will have to deploy your best model as a webservice and test the model endpoint.
 
 ## Dataset
 
@@ -45,42 +43,35 @@ Regarding the features, the creatinine phosphokinase (CPK) states the level of t
 
 ### Access
 
-I downloaded the Heart Failure Dataset from kaggle as a csv file, then i registered it in the Azure Workspace under Dataset as a Tabular dataset. Then uploaded it from the local files in my system. I also made it accessible in the jupyter notebook by using the code: dataset= Dataset.get_by_name(ws, name="heart-failure).
+During this project course, i downloaded the dataset from Kaggle as csv file. Than i uploaded it on my github profile and accessed it using Tabular dataset as given below :
+```
+from azureml.core.dataset import Dataset
+path = "https://raw.githubusercontent.com/Arushikha0408/nd00333-capstone/master/heart_failure_clinical_records_dataset.csv"
+dataset = Dataset.Tabular.from_delimited_files(path)
+```
 
 ## Automated ML
 
 The following code shows a basic example of creating an AutoMLConfig object and submitting an experiment for classification. I chose the automl settings below because I wanted to specify the experiment type as classification. The classification experiment will be carried out using AUC weighted as the primary metric, I find this metric useful for predicting binary classification models. The experiment timeout minutes is set to 30 minutes to control the use of resources and 5 cross-validation folds with the maximum number of iterations that would be executed simultaneously set to 4 to maximize usage. All of these settings defines the machine learning task.
 
 The configuration object below contains and persists the parameters for configuring the experiment run, as well as the training data to be used at run time.
-
+```
 automl_settings = {
-
     "experiment_timeout_minutes": 30,
-    
     "max_concurrent_iterations": 5,
-    
     "primary_metric" : 'AUC_weighted',
-    
     "n_cross_validations": 5
 }
-
-automl_config = AutoMLConfig(compute_target=new_cluster,
-
+automl_config = AutoMLConfig(compute_target=cpu_cluster,
                              task = "classification",
-                             
                              training_data=dataset,
-                             
                              label_column_name="DEATH_EVENT", 
-                             
                              enable_early_stopping= True,
-                             
                              featurization= 'auto',
-                             
                              enable_voting_ensemble= True,
-                             
                              **automl_settings
-                             
                             )
+```
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/run1.PNG)
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/auc_weighted.PNG)
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/model.PNG)
@@ -111,7 +102,7 @@ The parameters I used for the hyperparameter search are:
 
 Regularization Strength (C) with range 0.1 to 1.0 -- Inverse of regularization strength. Smaller values cause stronger regularization
 
-Max Iterations (max_iter) with values 50, 100, 150 and 200 -- Maximum number of iterations to converge.
+Max Iterations (max_iter) with values 25, 50, 100, 150 and 200 -- Maximum number of iterations to converge.
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/hyper_para.PNG)
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/hyper_rundetails1.PNG)
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/hyper_rundetails2.PNG)
@@ -120,16 +111,13 @@ Max Iterations (max_iter) with values 50, 100, 150 and 200 -- Maximum number of 
 
 The best hyperparameters for the hyperdrive model is:
 
-'Regularization Strength: ': 0.05203245378731211
+• 'Regularization Strength: ': 0.05232056042459456
+• 'Max iterations: ': 25
+• This hyperparameters generated an accuracy of  0.7666666666666667 for the hyperdrive model.
 
-'Max iterations: ': 75
-
-This hyperparameters generated an accuracy of  0.7833333333333333 for the hyperdrive model.
-
-I could have improved the model through the use of Bayesian optimization algorithm that allows for the use of a different kind of statistical technique to improve the kind of hyperparameter. It picks samples based on how previous samples performed, so that new samples improve the primary metric and its search is potentially efficient.
+The model could have improved further using Bayesian optimization algorithm but that allows for the use of a different kind of statistical techniques for improvement of hyperparamter. It picks samples based on how previous samples performed, so that new samples improve the primary metric and its search is potentially efficient.
 
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/hyper_bestrun.PNG)
-
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/hyper_bestmodel.PNG)
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/hyper_bestmodel1.PNG)
 
@@ -138,17 +126,55 @@ I could have improved the model through the use of Bayesian optimization algorit
 
 After training a model using Automated ML, the next thing is to deploy the best model as a webservice and test the model endpoint.
 
-To deploy my automl model, first thing is to register the model and then create an environment. I have a score.py script that is provided for the inference configuration. In the inference configuration, I enabled application insights, that is, logging. So now I can deploy the automl model using Azure Container Instance as a WebService with parameters: workspace, aci service name, model, inference config and deployment configuration.
+To deploy the automl model, first thing is to register the model and then create an environment. We have a 'score.py' script that is provided for the inference configuration. In the inference configuration, I enabled application insights, that is, logging. So now I can deploy the automl model using Azure Container Instance as a WebService with parameters: workspace, aci service name, model, inference config and deployment configuration.
 
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/deploy.PNG)
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/deploy1.PNG)
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/deploy2.PNG)
  
-After deployment was successful, a rest endpoint was generated, to query the endpoint with a sample input, I created an endpoint.py file that contained two sets of data for scoring, I copied the rest endpoint and added it to the endpoint.py file as a scoring uri.
+After deployment was successful, a rest endpoint was generated, to query the endpoint with a sample input, I created an endpoint.py file that contained two sets of data for scoring, I copied the rest endpoint and added it to the 'endpoint.py' file as a scoring uri.
+
+scoring URI - http://f0f828f8-9020-4182-b1dd-340c9b7986bd.southcentralus.azurecontainer.io/score
+
+Sample input/payload:
+```
+{
+  "data": [
+    {
+      "age": 36,
+      "anaemia": 0,
+      "creatinine_phosphokinase": 200,
+      "diabetes": 0,
+      "ejection_fraction": 30,
+      "high_blood_pressure": 0,
+      "platelets": 120000,
+      "serum_creatinine": 1.1,
+      "serum_sodium": 135,
+      "sex": 1,
+      "smoking": 0,
+      "time": 7
+    },
+    {
+      "age": 39,
+      "anaemia": 0,
+      "creatinine_phosphokinase": 300,
+      "diabetes": 0,
+      "ejection_fraction": 50,
+      "high_blood_pressure": 0,
+      "platelets": 200000,
+      "serum_creatinine": 0.9,
+      "serum_sodium": 250,
+      "sex": 0,
+      "smoking": 0,
+      "time": 1
+    }
+  ]
+}
+``` 
 
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/deploy3.PNG)
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/deploy4.PNG)
 
 ### Screen Recording
 
- The link to screen recoreding is - 
+ The link to screen recording is - 
