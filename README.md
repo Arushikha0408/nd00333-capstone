@@ -1,32 +1,4 @@
 #  CAPSTONE PROJECT
-
-#  Table of Contents
-
-## . Project Overview
-
-## . Project Set Up
-
-## . Dataset
-
-   ### - Overview
-   ### - Task
-   ### - Access
-   
-## . Automated ML
-           - Settings
-           - Configuration
-
-   ###  Results
-   
-## . Hyperparameter Tuning   
-          - Model
-          - Parameters
-          
-   ###  Results
-   
-## . Model Deployment
-
-## . Screen Recording
    
 ## Project overview
 
@@ -75,8 +47,6 @@ Regarding the features, the creatinine phosphokinase (CPK) states the level of t
 
 I downloaded the Heart Failure Dataset from kaggle as a csv file, then i registered it in the Azure Workspace under Dataset as a Tabular dataset. Then uploaded it from the local files in my system. I also made it accessible in the jupyter notebook by using the code: dataset= Dataset.get_by_name(ws, name="heart-failure).
 
-![access dataset](https://github.com/OREJAH/nd00333-capstone/blob/master/starter_file/heart%20failure%20dataset.PNG)
-
 ## Automated ML
 
 The following code shows a basic example of creating an AutoMLConfig object and submitting an experiment for classification. I chose the automl settings below because I wanted to specify the experiment type as classification. The classification experiment will be carried out using AUC weighted as the primary metric, I find this metric useful for predicting binary classification models. The experiment timeout minutes is set to 30 minutes to control the use of resources and 5 cross-validation folds with the maximum number of iterations that would be executed simultaneously set to 4 to maximize usage. All of these settings defines the machine learning task.
@@ -112,9 +82,6 @@ automl_config = AutoMLConfig(compute_target=new_cluster,
                              
                             )
 
-![completed](https://github.com/OREJAH/nd00333-capstone/blob/master/starter_file/automl%20rundetails.PNG)
-![completed](https://github.com/OREJAH/nd00333-capstone/blob/master/starter_file/automl%20rundetails2.PNG)
-![models](https://github.com/OREJAH/nd00333-capstone/blob/master/starter_file/Models%20generated.PNG)
 
 ### Results
 
@@ -128,10 +95,6 @@ It also had weights of:
 
  'ensemble_weights': '0.06666666666666667, 0.13333333333333333, 0.2, 0.06666666666666667, 0.06666666666666667, 0.06666666666666667, 0.06666666666666667, 0.13333333333333333, 0.06666666666666667, 0.06666666666666667, 0.06666666666666667'
  
-![best model](https://github.com/OREJAH/nd00333-capstone/blob/master/starter_file/automl%20Best%20model.PNG)
-![metrics](https://github.com/OREJAH/nd00333-capstone/blob/master/starter_file/experiment%20metrics.PNG)
-![run id](https://github.com/OREJAH/nd00333-capstone/blob/master/starter_file/automl%20best%20runid.PNG)
-
 To improve the automl model, I can try applying other metrics, for example, the average precision score metrics that gives the weighted mean of precision with weights equal to class probability. It is a useful metric to compare how well models are ordering the predictions, without considering any specific decision threshold.
 
 ## Hyperparameter Tuning
@@ -143,10 +106,6 @@ The parameters I used for the hyperparameter search are:
 Regularization Strength (C) with range 0.1 to 1.0 -- Inverse of regularization strength. Smaller values cause stronger regularization
 
 Max Iterations (max_iter) with values 50, 100, 150 and 200 -- Maximum number of iterations to converge.
-
-![parameters](https://github.com/OREJAH/nd00333-capstone/blob/master/starter_file/hyperparameters.PNG)
-![run in progress](https://github.com/OREJAH/nd00333-capstone/blob/master/starter_file/hyperdrive%20widgets%20in%20progress.PNG)
-![run completed](https://github.com/OREJAH/nd00333-capstone/blob/master/starter_file/hyperdrive%20widget.PNG)
 
 ### Results
 
@@ -160,7 +119,6 @@ This hyperparameters generated an accuracy of  0.7833333333333333 for the hyperd
 
 I could have improved the model through the use of Bayesian optimization algorithm that allows for the use of a different kind of statistical technique to improve the kind of hyperparameter. It picks samples based on how previous samples performed, so that new samples improve the primary metric and its search is potentially efficient.
 
-![hyperdrive_best_id](https://github.com/OREJAH/nd00333-capstone/blob/master/starter_file/HYPERDRIVE%20BEST_RUN_ID.PNG)
 
 
 ## Model Deployment
@@ -169,17 +127,11 @@ After training a model using Automated ML, the next thing is to deploy the best 
 
 To deploy my automl model, first thing is to register the model and then create an environment. I have a score.py script that is provided for the inference configuration. In the inference configuration, I enabled application insights, that is, logging. So now I can deploy the automl model using Azure Container Instance as a WebService with parameters: workspace, aci service name, model, inference config and deployment configuration.
 
-![notebook](https://github.com/OREJAH/nd00333-capstone/blob/master/starter_file/deploy.PNG)
-![deploy](https://github.com/OREJAH/nd00333-capstone/blob/master/starter_file/deployment%20in%20progress.PNG)
-![success](https://github.com/OREJAH/nd00333-capstone/blob/master/starter_file/deploy%20succeeded.PNG)
-
  
 After deployment was successful, a rest endpoint was generated, to query the endpoint with a sample input, I created an endpoint.py file that contained two sets of data for scoring, I copied the rest endpoint and added it to the endpoint.py file as a scoring uri.
 
-![endpoint test](https://github.com/OREJAH/nd00333-capstone/blob/master/starter_file/webservice%20request.PNG)
-![logs](https://github.com/OREJAH/nd00333-capstone/blob/master/starter_file/print%20logs.PNG)
 
 
 ### Screen Recording
 
- The link to screen recoreding is https://youtu.be/GUnZAbaA_lU
+ The link to screen recoreding is 
