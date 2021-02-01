@@ -7,6 +7,7 @@ This project will demonstrate my ability to use an external dataset in Azure wor
 
 ### Project Set Up
 Steps needs to be followed during this project - 
+
 •	**Step 1 :** Set up your workspace: Create a new workspace, if you haven’t already.
 
 •	**Step 2 :** Set up your Azure Development Environment: Create a compute instance VM to run jupyter notebooks.
@@ -134,7 +135,7 @@ To deploy the automl model, first thing is to register the model and then create
  
 After deployment was successful, a rest endpoint was generated, to query the endpoint with a sample input, I created an endpoint.py file that contained two sets of data for scoring, I copied the rest endpoint and added it to the 'endpoint.py' file as a scoring uri.
 
-scoring URI - http://f0f828f8-9020-4182-b1dd-340c9b7986bd.southcentralus.azurecontainer.io/score
+scoring URI - http://ee83b334-0b8c-458e-b3fe-a9ba02913292.southcentralus.azurecontainer.io/score
 
 Sample input/payload:
 ```
