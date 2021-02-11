@@ -176,6 +176,13 @@ Sample input/payload:
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/deploy3.PNG)
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/deploy4.PNG)
 
+## Future Improvement
+There are many ways to improve AutoML and HyperDrive runs in this project.
+To improve the AutoML, we could choose the best 3 to 5 algorithms that performed well in this classification task and create another AutoML run forbidding any other algorithm type. We could also take a look at the data that has been wrongly classified by the best model and try to identify a pattern that points to transformations that we can perform in the dataset. That can be done by creating a pipeline with a first step to transform the data and a second one to execute the AutoML.
+Moving on to the HyperDrive algorithm, we could have used regularization strength as a reference (it was randomly picked) and created a second HyperDrive run using a different sampling method using values closer to it. Another strategy would be to test different classifier algorithms in our training script and change their hyperparameters too. We could do that to a finite set of algorithms and hyperparameters and select the best one among all runs. Many other classification algorithms could be tested, like Decision Tree, Random Forest, Support Vector Classification, and so on. Each of these algorithms has different hyperparameters that can be choose using either Random Sampling or other sampling methods. Deep Learning algorithms could also be applied to solve this problem.
+
+Going even further, models performance was measured using the metric `Accuracy` for simplicity, and this could be changed to a more robust metric like `AUC_weighted` for example.
+
 ### Screen Recording
 
  The link to screen recording is - https://drive.google.com/file/d/17N-Zx7mQeB7kdyAKzg7gH4g20fjs6bnM/view?usp=drivesdk
