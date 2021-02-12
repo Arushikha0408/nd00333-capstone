@@ -73,8 +73,13 @@ automl_config = AutoMLConfig(compute_target=cpu_cluster,
                              **automl_settings
                             )
 ```
+**AutoML experiment RunDetails** - The following image shows run details of AutoML experiment
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/run1.PNG)
+
+**AutoML Run with Metric: AUC_Weighted** - This shows for different AutoML run. On average it is - 0.9191440337763013.
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/auc_weighted.PNG)
+
+**Various Models of AutoML Run** - This image shows various algorithm along with their AUC_Weighted value.  
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/model.PNG)
 
 ### Results
@@ -91,8 +96,13 @@ It also had weights of:
  
 To improve the automl model, I can try applying other metrics, for example, the average precision score metrics that gives the weighted mean of precision with weights equal to class probability. It is a useful metric to compare how well models are ordering the predictions, without considering any specific decision threshold.
 
+**VotingEnsemble Run Details** - This image shows details like status, accuracy, AUC Macro, AUC Micro, Duration etc. of VotingEnsemble algorithm.
 ![alt_test](https://github.com/Arushikha0408/nd00333-capstone/blob/master/voting1.PNG)
+
+**VotingEnsemble Metric Details** - This image shows details like accuracy, AUC Macro, AUC Micro and AUC_Weighted values of VotingEnsemble algorithm
 ![alt_test](https://github.com/Arushikha0408/nd00333-capstone/blob/master/voting2.PNG)
+
+**Jupyter notebook snippet for code for best run** - This shows code and output related to best run for AutoML experiment.
 ![alt_test](https://github.com/Arushikha0408/nd00333-capstone/blob/master/best_run.PNG)
 
 ## Hyperparameter Tuning
@@ -104,8 +114,14 @@ The parameters I used for the hyperparameter search are:
 Regularization Strength (C) with range 0.1 to 1.0 -- Inverse of regularization strength. Smaller values cause stronger regularization
 
 Max Iterations (max_iter) with values 25, 50, 100, 150 and 200 -- Maximum number of iterations to converge.
+
+**Jupyter notebook snippet for Hyperparameter Tuning - hyperdrive_config code** - This shows code configurations for hyperparameter tuning.
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/hyper_para.PNG)
+
+**Jupyter notebook snippet for Hyperparamter Tuning - RunDeatils part (a)** - This shows the output obtained for RunDetails of hyperparameter drive.
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/hyper_rundetails1.PNG)
+
+**Jupyter notebook snippet for Hyperparamter Tuning - RunDeatils part (b)** - 
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/hyper_rundetails2.PNG)
 
 ### Results
@@ -118,8 +134,13 @@ The best hyperparameters for the hyperdrive model is:
 
 The model could have improved further using Bayesian optimization algorithm but that allows for the use of a different kind of statistical techniques for improvement of hyperparamter. It picks samples based on how previous samples performed, so that new samples improve the primary metric and its search is potentially efficient.
 
+**Jupyter notebook snippet for Hyperparamter Tuning - Best Run code snippet** - This image shows code for best run and its output.
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/hyper_bestrun.PNG)
+
+**Hyperparamter Tuning - hyper_drive model run detals under Experiments Part (A)** - This image shows run details of hyper driver under Experiments 
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/hyper_bestmodel.PNG)
+
+**Hyperparamter Tuning - hyper_drive model run detals under Experiments Part (B)** -
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/hyper_bestmodel1.PNG)
 
 
@@ -129,8 +150,13 @@ After training a model using Automated ML, the next thing is to deploy the best 
 
 To deploy the automl model, first thing is to register the model and then create an environment. We have a 'score.py' script that is provided for the inference configuration. In the inference configuration, I enabled application insights, that is, logging. So now I can deploy the automl model using Azure Container Instance as a WebService with parameters: workspace, aci service name, model, inference config and deployment configuration.
 
+**Jupyter notebook snippet of AutoML** - This image shows code snippet for deploying a model in AutoML.
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/deploy.PNG)
+
+**Deploying best model for AutoML - Running status** - This shows Running status of deployed AutoML model
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/deploy1.PNG)
+
+**Deploying best model for AutoML - Completed status** - This shows Completed status of deployed AutoML model
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/deploy2.PNG)
  
 After deployment was successful, a rest endpoint was generated, to query the endpoint with a sample input, I created an endpoint.py file that contained two sets of data for scoring, I copied the rest endpoint and added it to the 'endpoint.py' file as a scoring uri.
@@ -173,7 +199,10 @@ Sample input/payload:
 }
 ``` 
 
+**Jupyter Notebook snippet - Queying Endpoint.py generated after Deployment** - This image shows querying endpoint.py and creating json for service.
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/deploy3.PNG)
+
+**Logs for Service** - This image shows logs for running service.
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/deploy4.PNG)
 
 ## Future Improvement
@@ -183,6 +212,6 @@ Moving on to the HyperDrive algorithm, we could have used regularization strengt
 
 Going even further, models performance was measured using the metric `Accuracy` for simplicity, and this could be changed to a more robust metric like `AUC_weighted` for example.
 
-### Screen Recording
+## Screen Recording
 
  The link to screen recording is - https://drive.google.com/file/d/17N-Zx7mQeB7kdyAKzg7gH4g20fjs6bnM/view?usp=drivesdk
