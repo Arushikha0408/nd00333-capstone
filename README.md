@@ -161,7 +161,7 @@ To deploy the automl model, first thing is to register the model and then create
  
 After deployment was successful, a rest endpoint was generated, to query the endpoint with a sample input, I created an endpoint.py file that contained two sets of data for scoring, I copied the rest endpoint and added it to the 'endpoint.py' file as a scoring uri.
 
-scoring URI - http://ee83b334-0b8c-458e-b3fe-a9ba02913292.southcentralus.azurecontainer.io/score
+scoring URI - http://1f47e230-341d-459b-9740-11b253d5d018.southcentralus.azurecontainer.io/score
 
 Sample input/payload:
 ```
@@ -201,6 +201,9 @@ Sample input/payload:
 
 **Jupyter Notebook snippet - Queying Endpoint.py generated after Deployment** - This image shows querying endpoint.py and creating json for service.
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/deploy3.PNG)
+
+**Jupyter Notebook snippet - Serive State** - This image shows service state as Healthy for model. 
+![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/service_state.PNG)
 
 **Logs for Service** - This image shows logs for running service.
 ![alt_text](https://github.com/Arushikha0408/nd00333-capstone/blob/master/deploy4.PNG)
